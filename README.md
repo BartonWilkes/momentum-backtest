@@ -30,7 +30,7 @@ A backtested moving-average crossover (momentum/trend-following) trading strateg
 - **Data:** daily adjusted close prices (dividend- and split-adjusted) pulled via the `yfinance` API, covering 1 January 2005 to 1 January 2015.
 - **Backtest logic:** signals are generated using each day's closing price, then applied to the *following* day's return (a one-day lag) to avoid lookahead bias — the strategy cannot trade on information it wouldn't have had in real time.
 - **Metrics:** Total Return, CAGR (annualised return), annualised Volatility, Sharpe Ratio (return per unit of risk, assuming a 0% risk-free rate), Maximum Drawdown (worst peak-to-trough decline), and Win Rate (% of invested days with a positive return).
-- **Universe:** 12 large, liquid, continuously-listed US stocks selected *before* running the backtest, spanning Financials, Industrials, Technology, Airlines, Materials, Telecom, Insurance, Homebuilding, and Retail — chosen to avoid sector concentration and survivorship bias.
+- **Universe:** 12 large, liquid, continuously-listed US stocks, spanning Financials, Industrials, Technology, Airlines, Materials, Telecom, Insurance, Homebuilding, and Retail — chosen to avoid sector concentration and survivorship bias.
 
 **AIG** — the clearest example of the strategy's crisis-protection effect:
  
@@ -40,7 +40,7 @@ A backtested moving-average crossover (momentum/trend-following) trading strateg
  
 ![BAC strategy vs buy-and-hold](results/metrics_curve_BAC.png)
  
-**HD** — an example where buy-and-hold won, included for balance:
+**HD** — an example where buy-and-hold won, showing the strategy's weakness during periods of sustained long-term growth:
  
 ![HD strategy vs buy-and-hold](results/metrics_curve_HD.png)
  
@@ -83,9 +83,9 @@ python data_loader.py    # downloads and cleans price data
 python metrics.py        # runs the backtest, prints stats, saves charts
 ```
 
-## Example Output
+## Example Outputs
 
-See `results/` for equity curve charts comparing strategy vs. buy-and-hold for each ticker. Notable examples: `metrics_curve_AIG.png` and `metrics_curve_BAC.png` show the clearest crisis-protection effect.
+See `results/` for equity curve charts comparing strategy vs. buy-and-hold for each ticker.
 
 
 
