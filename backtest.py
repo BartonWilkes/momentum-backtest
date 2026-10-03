@@ -9,8 +9,8 @@ def run_backtest(csv_path):
     df["daily_return"] = df["Close"].pct_change()
 
     # strategy return: only earn the day's return if we were invested (signal==1)
-    # we use .shift(1) because we only know today's signal AFTER today's close,
-    # so we can only act on it from tomorrow
+    # use .shift(1) because today's signal is only known AFTER today's close,
+    # only act on it from tomorrow
     df["strategy_return"] = df["daily_return"] * df["signal"].shift(1)
 
     # cumulative growth of $1 invested, for both approaches
