@@ -10,7 +10,7 @@ for ticker in tickers:
     print(f"Downloading {ticker}...")
     df = yf.download(ticker, start="2005-01-01", end="2015-01-01", auto_adjust=True)
 
-    # NEW: flatten multi-level columns (newer yfinance versions add a "Ticker" row)
+    #flatten multi-level columns
     if isinstance(df.columns, pd.MultiIndex):
         df.columns = df.columns.get_level_values(0)
 
