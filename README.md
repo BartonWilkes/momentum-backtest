@@ -26,21 +26,21 @@ A backtested moving-average crossover (momentum/trend-following) trading strateg
 
 ## Methodology
 
-- **Strategy:** a simple moving-average crossover. A 20-day simple moving average (SMA) is compared to a 50-day SMA. When the short-term average is above the long-term average, the strategy holds a full (100%) position in the stock; otherwise it holds cash. This produces a binary long/flat signal — no shorting, no partial position sizing.
+- **Strategy:** a simple moving-average crossover. A 20-day simple moving average (SMA) is compared to a 50-day SMA. When the short-term average is above the long-term average, the strategy holds a full (100%) position in the stock; otherwise it holds cash. This produces a binary long/flat signal so no shorting, no partial position sizing.
 - **Data:** daily adjusted close prices (dividend- and split-adjusted) pulled via the `yfinance` API, covering 1 January 2005 to 1 January 2015.
-- **Backtest logic:** signals are generated using each day's closing price, then applied to the *following* day's return (a one-day lag) to avoid lookahead bias — the strategy cannot trade on information it wouldn't have had in real time.
+- **Backtest logic:** signals are generated using each day's closing price, then applied to the *following* day's return (a one-day lag) to avoid lookahead bias so the strategy cannot trade on information it wouldn't have had in real time.
 - **Metrics:** Total Return, CAGR (annualised return), annualised Volatility, Sharpe Ratio (return per unit of risk, assuming a 0% risk-free rate), Maximum Drawdown (worst peak-to-trough decline), and Win Rate (% of invested days with a positive return).
 - **Universe:** 12 large, liquid, continuously-listed US stocks, spanning Financials, Industrials, Technology, Airlines, Materials, Telecom, Insurance, Homebuilding, and Retail — chosen to avoid sector concentration and survivorship bias.
 
-**AIG** — the clearest example of the strategy's crisis-protection effect:
+**AIG**: the clearest example of the strategy's crisis-protection effect:
  
 ![AIG strategy vs buy-and-hold](results/metrics_curve_AIG.png)
  
-**BAC** — strategy significantly outperformed through the 2008 crash and recovery:
+**BAC**: strategy significantly outperformed through the 2008 crash and recovery:
  
 ![BAC strategy vs buy-and-hold](results/metrics_curve_BAC.png)
  
-**HD** — an example where buy-and-hold won, showing the strategy's weakness during periods of sustained long-term growth:
+**HD**: an example where buy-and-hold won, showing the strategy's weakness during periods of sustained long-term growth:
  
 ![HD strategy vs buy-and-hold](results/metrics_curve_HD.png)
  
@@ -50,9 +50,9 @@ A backtested moving-average crossover (momentum/trend-following) trading strateg
 
 The results support a well-documented property of trend-following strategies: they excel at capital preservation during sustained downturns, at the cost of underperforming during periods of steady growth.
 
-- **Crisis protection was the strategy's clearest strength.** On the most crisis-exposed names — AIG, BAC, C, and F — the strategy avoided the majority of the 2008–2009 collapse by exiting on the downward crossover, producing dramatically better drawdowns and, in most cases, better total returns than simply holding through the crash.
-- **On steadier, less volatile stocks (MSFT, T, HD), buy-and-hold generally won on total return**, since the strategy occasionally exited during temporary pullbacks and re-entered late, missing some of the recovery — a known weakness of moving-average strategies in choppy or steadily-trending conditions (sometimes called "whipsaw").
-- **Risk-adjusted performance (Sharpe ratio) was genuinely mixed** (6 wins each), showing that reduced volatility does not automatically translate into a better risk-adjusted return — a useful reminder that drawdown protection and Sharpe ratio measure different things.
+- **Crisis protection was the strategy's clearest strength.** On the most crisis-exposed names  (AIG, BAC, C, and F), the strategy avoided the majority of the 2008–2009 collapse by exiting on the downward crossover, producing dramatically better drawdowns and, in most cases, better total returns than simply holding through the crash.
+- **On steadier, less volatile stocks (MSFT, T, HD), buy-and-hold generally won on total return**, since the strategy occasionally exited during temporary pullbacks and re-entered late, missing some of the recovery, which is a known weakness of moving-average strategies in choppy or steadily-trending conditions.
+- **Risk-adjusted performance (Sharpe ratio) was genuinely mixed** (6 wins each), showing that reduced volatility does not automatically translate into a better risk-adjusted return a useful reminder that drawdown protection and Sharpe ratio measure different things.
 
 ## Limitations
 
@@ -60,7 +60,7 @@ The results support a well-documented property of trend-following strategies: th
 - **Binary position sizing.** The strategy is always either 100% invested or 100% in cash; it does not scale position size with signal strength or volatility, which a more sophisticated strategy might do.
 - **Parameter choice was not optimised on this data.** The 20/50-day windows are a standard textbook choice, deliberately not tuned to this specific sample, to avoid overfitting/curve-fitting to historical noise. Performance may differ meaningfully with different window lengths.
 - **Single strategy type, single asset class.** Results are specific to a moving-average crossover on single-name equities; they should not be generalised to other strategy types, asset classes, or time periods without further testing.
-- **Sample period.** The 2005–2015 window specifically includes the 2008 crisis, which likely flatters a trend-following approach; results for the same strategy over 2015–2024 (a sustained bull market) showed the opposite pattern — buy-and-hold outperforming in most cases — reinforcing that the strategy's edge is regime-dependent, not universal.
+- **Sample period.** The 2005–2015 window specifically includes the 2008 crisis, which likely flatters a trend-following approach; results for the same strategy over 2015–2024 (a sustained bull market) showed the opposite pattern with buy-and-hold outperforming in most cases, reinforcing that the strategy's edge is regime-dependent, not universal.
 
 ## Project Structure
 
